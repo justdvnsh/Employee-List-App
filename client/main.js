@@ -1,22 +1,17 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import EmployeeList from './components/employee_list'
 
-import './main.html';
+class App extends Component {
+  render () {
+    return (
+      <div>
+        <EmployeeList />
+      </div>
+    )
+  }
+};
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
-});
-
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
-
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
-});
+Meteor.startup(() => {
+  ReactDOM.render(<App />, document.querySelector('#my-render-area'))
+})
